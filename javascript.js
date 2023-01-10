@@ -10,28 +10,51 @@ function getComputerChoice() {
   } else {
     computerChoice = "scissors";
   }
+  console.log("computer: " + computerChoice);
   return(computerChoice);
 }
-console.log(getComputerChoice());
 
-//get players choice
+//get players choice and run validity check function
 function getPlayerChoice() {
   let playerChoice = prompt("Please select Rock, Paper, or Scissors.");
-  let isValid = playerChoice.toLowerCase === "rock" || 
-                playerChoice.toLowerCase === "paper" ||
-                playerChoice.toLowerCase === "scissors";
-
-  // if (isValid) {
-  //   return(playerChoice.toLowerCase);
-  // } else {
-  //   console.log("Incorrect entry.");
-  //   getPlayerChoice();    
-  // }
+  isValid = checkIsValid(playerChoice);
 
   while (!isValid) {
-    playerChoice = prompt("Something went wrong. Please select Rock, Paper, or Scissors again.")
+    playerChoice = prompt("Something went wrong. Please select Rock, Paper, or Scissors again.");
+    isValid = checkIsValid(playerChoice);
   } 
 
-  return(playerChoice);
+  console.log("player: " + playerChoice);
+  return(playerChoice.toLowerCase());
 }
-console.log(getPlayerChoice());
+
+//check if player choice is valid
+function checkIsValid(choiceToCheck) {
+  let isValid = choiceToCheck.toLowerCase() === "rock" || 
+  choiceToCheck.toLowerCase() === "paper" ||
+  choiceToCheck.toLowerCase() === "scissors";
+  return(isValid)
+}
+
+//run a game of rock paper scissors
+function rockPaperScissors(playerSelection, computerSelection) {
+  let gameResult = undefined;
+  let winner = `You Win! ${playerSelection} beats ${computerSelection}`;
+  let draw = "It's a draw. Nobody loses.";
+  let loser = `You lose! ${computerSelection} beats ${playerSelection}`;
+
+  if (playerSelection === "rock" && computerSelection === "scissors") {
+    gameResult = winner;
+  } else if (playerSelection === "paper" && computerSelection === "rock") {
+    gameResult = winner;
+  } else if (playerSelection === "scissors" && computerSelection === "paper") {
+    gameResult = winner;
+  } else if (playerSelection === computerSelection) {
+    gameResult = draw;
+  } else {
+    gameResult = loser;
+  }
+
+  return(gameResult);
+}
+console.log(rockPaperScissors(getPlayerChoice(), getComputerChoice()));
