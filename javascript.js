@@ -36,25 +36,57 @@ function checkIsValid(choiceToCheck) {
   return(isValid)
 }
 
-//run a game of rock paper scissors
-function rockPaperScissors(playerSelection, computerSelection) {
+//run a single round of rock paper scissors
+function playRound(playerSelection, computerSelection) {
   let gameResult = undefined;
-  let winner = `You Win! ${playerSelection} beats ${computerSelection}`;
-  let draw = "It's a draw. Nobody loses.";
-  let loser = `You lose! ${computerSelection} beats ${playerSelection}`;
+  let winnerMessage = `You Win! ${playerSelection} beats ${computerSelection}`;
+  let drawMessage = "It's a draw. Nobody loses.";
+  let loserMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
 
   if (playerSelection === "rock" && computerSelection === "scissors") {
-    gameResult = winner;
+    gameResult = "winner";
+    gameMessage = winnerMessage;
   } else if (playerSelection === "paper" && computerSelection === "rock") {
-    gameResult = winner;
+    gameResult = "winner";
+    gameMessage = winnerMessage;
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
-    gameResult = winner;
+    gameResult = "winner";
+    gameMessage = winnerMessage;
   } else if (playerSelection === computerSelection) {
-    gameResult = draw;
+    gameResult = "draw";
+    gameMessage = drawMessage;
   } else {
-    gameResult = loser;
+    gameResult = "loser";
+    gameMessage = loserMessage;
   }
-
+  
+  console.log(gameMessage);
   return(gameResult);
 }
-console.log(rockPaperScissors(getPlayerChoice(), getComputerChoice()));
+
+//run a 5 game set
+function game() {
+  let wins = 0;
+  let gamesPlayed = 0;
+  let losses = gamesPlayed - wins;
+  while (gamesPlayed < 5) {
+    result = playRound(getPlayerChoice(), getComputerChoice());
+
+    if (result === "winner") {
+      games = ++gamesPlayed;
+      wins = ++wins;
+    } else if (result === "loser") {
+      games = ++gamesPlayed;
+    } 
+    console.log(`games: ${gamesPlayed}`);
+    console.log(`The score is: ${wins} wins and ${losses} losses.`)
+  }
+
+  if (wins > losses) {
+    console.log("You win!");
+  } else {
+    console.log("You lose!");
+  }
+}
+
+console.log(game());
