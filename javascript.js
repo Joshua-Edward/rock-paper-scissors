@@ -13,37 +13,13 @@ function getComputerChoice() {
   }
 
   //output the computers choice
-  console.log("computer: " + computerChoice);
   return(computerChoice);
 }
 
-
-//get players choice and run validity check function
-function getPlayerChoice() {
-  let playerChoice = prompt("Please select Rock, Paper, or Scissors.");
-  isValid = checkIsValid(playerChoice);
-
-  //if the input from the player is not valid ask again
-  while (!isValid) {
-    playerChoice = prompt("Something went wrong. Please select Rock, Paper, or Scissors again.");
-    isValid = checkIsValid(playerChoice);
-  } 
-
-  //out players choice
-  console.log("player: " + playerChoice);
-  return(playerChoice.toLowerCase());
-}
-
-//check if player choice is valid
-function checkIsValid(choiceToCheck) {
-  let isValid = choiceToCheck.toLowerCase() === "rock" || 
-  choiceToCheck.toLowerCase() === "paper" ||
-  choiceToCheck.toLowerCase() === "scissors";
-  return(isValid)
-}
-
 //run a single round of rock paper scissors
-function playRound(playerSelection, computerSelection) {
+function playRound(event) {
+  const playerSelection = event.target.innerText.toLowerCase();
+  const computerSelection = getComputerChoice();
   let gameResult = undefined;
   let winnerMessage = `You Win! ${playerSelection} beats ${computerSelection}`;
   let drawMessage = "It's a draw. Nobody loses. Replay the round.";
@@ -68,17 +44,25 @@ function playRound(playerSelection, computerSelection) {
   }
   
   //output results of the round
-  console.log(gameMessage);
+  let resultDisplay = document.querySelector('#roundResults')
+  let playerDisplay = document.querySelector('#playerChoice')
+  let computerDisplay = document.querySelector('#computerChoice')
+
+  resultDisplay.innerText = gameMessage;
+  playerDisplay.innerText = `Player: ${playerSelection}`;
+  computerDisplay.innerText = `Computer: ${computerSelection}`;
+
   return(gameResult);
 }
-
-//run a 5 game set
-function game() {
+//globals??
   let wins = 0;
   let gamesPlayed = 0;
   let losses = 0;
+
+//run a 5 game set
+function game() {
   while (gamesPlayed < 5) {
-    result = playRound(getPlayerChoice(), getComputerChoice());
+    result = playRound();
 
     //increment up wins, losses, and games played
     if (result === "winner") {
@@ -102,4 +86,16 @@ function game() {
 }
 
 //launch the game
-game();
+// game();
+
+// Add functionallity to Rock button
+var btnRock = document.querySelector('.rock');
+btnRock.addEventListener('click', playRound);
+
+// Add functionallity to Paper button
+var btnRock = document.querySelector('.paper');
+btnRock.addEventListener('click', playRound);
+
+// Add functionallity to Scissors button
+var btnRock = document.querySelector('.scissors');
+btnRock.addEventListener('click', playRound);

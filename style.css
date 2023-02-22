@@ -1,0 +1,82 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: darkcyan;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  padding: 20px;
+}
+
+.btn {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #f4f4f4;
+  border: 2px solid black;
+}
+
+.rock {
+  background: brown;
+}
+
+.paper {
+  background: papayawhip;
+  color: #36454f;
+}
+
+.scissors {
+  background: darkolivegreen;
+}
+
+.counterContainer {
+  display: flex;
+  margin: 20px;
+  width: 250px;
+  justify-content: space-between;
+}
+
+.counter {
+  width: 100px;
+  height: 30px;
+  background: lightskyblue;
+  border: 2px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.resultsContainer {
+  display: flex;
+  width: 800px;
+  height: 50px;
+  margin: 20px;
+  gap: 20px;
+}
+
+#playerChoice,
+#computerChoice {
+  flex: 2;
+}
+
+.results {
+  background: coral;
+  color: #36454f;
+  border: solid black 2px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 3;
+}
