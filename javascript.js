@@ -1,3 +1,8 @@
+//Globals
+let wins = 0;
+let gamesPlayed = 0;
+let losses = 0;
+
 //get a random number and use it to determine computers choice
 function getComputerChoice() {
   let randomNumber = Math.floor(Math.random() * 3);
@@ -42,7 +47,7 @@ function playRound(event) {
     gameResult = "loser";
     gameMessage = loserMessage;
   }
-  
+
   //output results of the round
   let resultDisplay = document.querySelector('#roundResults')
   let playerDisplay = document.querySelector('#playerChoice')
@@ -52,41 +57,43 @@ function playRound(event) {
   playerDisplay.innerText = `Player: ${playerSelection}`;
   computerDisplay.innerText = `Computer: ${computerSelection}`;
 
-  return(gameResult);
-}
-//globals??
-  let wins = 0;
-  let gamesPlayed = 0;
-  let losses = 0;
-
-//run a 5 game set
-function game() {
-  while (gamesPlayed < 5) {
-    result = playRound();
-
-    //increment up wins, losses, and games played
-    if (result === "winner") {
-      gamesPlayed = ++gamesPlayed;
-      wins = ++wins;
-    } else if (result === "loser") {
-      gamesPlayed = ++gamesPlayed;
-      losses = ++losses;
-    }
-    //show current score and games played
-    console.log(`games: ${gamesPlayed}`);
-    console.log(`The score is: ${wins} wins and ${losses} losses.`)
+  if (gameResult === "winner") {
+    gamesPlayed = ++gamesPlayed;
+    wins = ++wins;
+  } else if (gameResult === "loser") {
+    gamesPlayed = ++gamesPlayed;
+    losses = ++losses;
   }
+  
+  winCount.innerText = `Wins: ${wins}`;
+  lossCount.innerText = `Losses: ${losses}`;
 
-  //determine the victor
-  if (wins > losses) {
-    console.log("Congrats! You win the game.");
-  } else {
-    console.log("Tough luck. You lose the game.");
+  var endGameScore = document.querySelector('.endScore');
+  var endGameResults = document.querySelector('.endResults');
+
+  if (gamesPlayed == 5 & wins > losses) {
+    endGameDisplay.style.display = 'flex';
+    endGameResults.innerText = "Congrats! You win the game.";
+    endGameScore.innerText = `Final Score = Wins: ${wins}   Losses: ${losses}`;
+  } else if (gamesPlayed == 5 & wins < losses){
+    endGameDisplay.style.display = 'flex';
+    endGameResults.innerText = "Tough luck. You lose the game.";
+    endGameScore.innerText = `Final Score = Wins: ${wins}   Losses: ${losses}`;
   }
 }
 
-//launch the game
-// game();
+function gameReset() {
+  wins = 0;
+  losses = 0;
+  gamesPlayed = 0;
+  endGameDisplay.style.display = 'none';
+  winCount.innerText = `Wins: ${wins}`;
+  lossCount.innerText = `Losses: ${losses}`;
+}
+
+// Selectors
+var winCount = document.querySelector('.wins');
+var lossCount = document.querySelector('.losses');
 
 // Add functionallity to Rock button
 var btnRock = document.querySelector('.rock');
@@ -99,3 +106,10 @@ btnRock.addEventListener('click', playRound);
 // Add functionallity to Scissors button
 var btnRock = document.querySelector('.scissors');
 btnRock.addEventListener('click', playRound);
+
+// Game reset
+var btnAgain = document.querySelector('.playAgain');
+var endGameDisplay = document.querySelector('.endContainer');
+btnAgain.addEventListener('click', gameReset)
+
+
