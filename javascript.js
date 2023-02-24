@@ -1,6 +1,5 @@
 //Globals
 let wins = 0;
-let gamesPlayed = 0;
 let losses = 0;
 
 //get a random number and use it to determine computers choice
@@ -49,67 +48,63 @@ function playRound(event) {
   }
 
   //output results of the round
-  let resultDisplay = document.querySelector('#roundResults')
-  let playerDisplay = document.querySelector('#playerChoice')
-  let computerDisplay = document.querySelector('#computerChoice')
-
   resultDisplay.innerText = gameMessage;
   playerDisplay.innerText = `Player: ${playerSelection}`;
   computerDisplay.innerText = `Computer: ${computerSelection}`;
 
   if (gameResult === "winner") {
-    gamesPlayed = ++gamesPlayed;
     wins = ++wins;
   } else if (gameResult === "loser") {
-    gamesPlayed = ++gamesPlayed;
     losses = ++losses;
   }
   
   winCount.innerText = `Wins: ${wins}`;
   lossCount.innerText = `Losses: ${losses}`;
 
-  var endGameScore = document.querySelector('.endScore');
-  var endGameResults = document.querySelector('.endResults');
+  winDetector(); 
+}
 
-  if (gamesPlayed == 5 & wins > losses) {
+// Checks to see if the game is finished
+function winDetector() {
+  if (wins === 5) {
     endGameDisplay.style.display = 'flex';
-    endGameResults.innerText = "Congrats! You win the game.";
+    endGameResults.innerText = "Congrats! You have won the game.";
     endGameScore.innerText = `Final Score = Wins: ${wins}   Losses: ${losses}`;
-  } else if (gamesPlayed == 5 & wins < losses){
+  } else if (losses === 5){
     endGameDisplay.style.display = 'flex';
-    endGameResults.innerText = "Tough luck. You lose the game.";
+    endGameResults.innerText = "Tough luck. You have lost the game.";
     endGameScore.innerText = `Final Score = Wins: ${wins}   Losses: ${losses}`;
   }
 }
 
+// Resets the game to the original state if play again is selected
 function gameReset() {
   wins = 0;
   losses = 0;
-  gamesPlayed = 0;
   endGameDisplay.style.display = 'none';
   winCount.innerText = `Wins: ${wins}`;
   lossCount.innerText = `Losses: ${losses}`;
+  resultDisplay.innerText = 'Pick Your Weapon';
+  playerDisplay.innerText = '';
+  computerDisplay.innerText = '';
 }
 
 // Selectors
-var winCount = document.querySelector('.wins');
-var lossCount = document.querySelector('.losses');
+const winCount = document.querySelector('.wins');
+const lossCount = document.querySelector('.losses');
+const resultDisplay = document.querySelector('#roundResults');
+const playerDisplay = document.querySelector('#playerChoice');
+const computerDisplay = document.querySelector('#computerChoice');
+const btnRock = document.querySelector('.rock');
+const btnPaper = document.querySelector('.paper');
+const btnScissors = document.querySelector('.scissors');
+const btnAgain = document.querySelector('.playAgain');
+const endGameDisplay = document.querySelector('.endContainer');
+const endGameScore = document.querySelector('.endScore');
+const endGameResults = document.querySelector('.endResults');
 
-// Add functionallity to Rock button
-var btnRock = document.querySelector('.rock');
+// Add click events to buttons
 btnRock.addEventListener('click', playRound);
-
-// Add functionallity to Paper button
-var btnRock = document.querySelector('.paper');
-btnRock.addEventListener('click', playRound);
-
-// Add functionallity to Scissors button
-var btnRock = document.querySelector('.scissors');
-btnRock.addEventListener('click', playRound);
-
-// Game reset
-var btnAgain = document.querySelector('.playAgain');
-var endGameDisplay = document.querySelector('.endContainer');
-btnAgain.addEventListener('click', gameReset)
-
-
+btnPaper.addEventListener('click', playRound);
+btnScissors.addEventListener('click', playRound);
+btnAgain.addEventListener('click', gameReset);
