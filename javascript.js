@@ -4,7 +4,7 @@ let losses = 0;
 
 //get a random number and use it to determine computers choice
 function getComputerChoice() {
-  let randomNumber = Math.floor(Math.random() * 3);
+  const randomNumber = Math.floor(Math.random() * 3);
   let computerChoice = undefined;
 
   //assign the random number to a pick for the game
@@ -26,8 +26,9 @@ function playRound(event) {
   const computerSelection = getComputerChoice();
   let gameResult = undefined;
   let winnerMessage = `You Win! ${playerSelection} beats ${computerSelection}`;
-  let drawMessage = "It's a draw. Nobody loses. Replay the round.";
+  const drawMessage = "It's a draw. Nobody loses. Replay the round.";
   let loserMessage = `You lose! ${computerSelection} beats ${playerSelection}`;
+  let gameMessage = undefined;
 
   //determine if the round will result in a win, loss, or draw
   if (playerSelection === "rock" && computerSelection === "scissors") {
